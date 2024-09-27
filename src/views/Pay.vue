@@ -6,9 +6,9 @@
 
     <div v-else>
       <div v-for="(card, index) in cards" :key="index" class="card">
-        <p>Card Number: {{ card.cardNumber }}</p>  <!-- 使用 cardNumber -->
-        <p>Card Holder: {{ card.cardHolder }}</p>   <!-- 使用 cardHolder -->
-        <p>Expiration Date: {{ card.expiration }}</p> <!-- 使用 expiration -->
+        <p>Card Number: {{ card.cardNumber }}</p>  
+        <p>Card Holder: {{ card.cardHolder }}</p>  
+        <p>Expiration Date: {{ card.expiration }}</p> 
       </div>
     </div>
 
@@ -21,15 +21,15 @@
       <form @submit.prevent="addCard">
         <div>
           <label for="number">Card Number:</label>
-          <input type="text" v-model="newCard.cardNumber" required> <!-- 使用 cardNumber -->
+          <input type="text" v-model="newCard.cardNumber" required> 
         </div>
         <div>
           <label for="holder">Card Holder:</label>
-          <input type="text" v-model="newCard.cardHolder" required> <!-- 使用 cardHolder -->
+          <input type="text" v-model="newCard.cardHolder" required> 
         </div>
         <div>
           <label for="expiry">Expiration Date:</label>
-          <input type="text" v-model="newCard.expiration" required> <!-- 使用 expiration -->
+          <input type="text" v-model="newCard.expiration" required> 
         </div>
         <button type="submit">Submit</button>
       </form>
@@ -43,13 +43,13 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      userId: 2,  // 用户ID
-      cards: [],  // 存储支付方式
+      userId: 2,  
+      cards: [],  
       showAddCardForm: false,
       newCard: {
-        cardNumber: '',   // 使用 cardNumber
-        cardHolder: '',   // 使用 cardHolder
-        expiration: ''    // 使用 expiration
+        cardNumber: '',   
+        cardHolder: '',   
+        expiration: ''    
       }
     };
   },
@@ -57,7 +57,7 @@ export default {
     async loadPaymentMethods() {
       try {
         const response = await axios.get(`http://localhost:8081/api/payment-methods/${this.userId}`);
-        this.cards = response.data;  // 将获取的支付方式赋值给 cards
+        this.cards = response.data;  
       } catch (error) {
         console.error('Error loading payment methods:', error);
       }
@@ -65,7 +65,7 @@ export default {
     async addCard() {
       try {
         const response = await axios.post(`http://localhost:8081/api/payment-methods/${this.userId}`, this.newCard);
-        this.cards.push(response.data);  // 添加新卡到列表中
+        this.cards.push(response.data);  
         this.newCard = { cardNumber: '', cardHolder: '', expiration: '' };
         this.showAddCardForm = false;
       } catch (error) {
@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    this.loadPaymentMethods();  // 页面加载时调用，获取支付方式
+    this.loadPaymentMethods();  
   }
 }
 </script>
