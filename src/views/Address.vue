@@ -55,7 +55,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      userId: 2, // 假设用户ID为2
+      userId: 2,
       defaultAddress: null,
       savedAddresses: [],
       showAddAddressForm: false,
@@ -74,11 +74,11 @@ export default {
   methods: {
     async fetchUserAddresses() {
       try {
-        // 调用后端API获取用户地址
+       
         const response = await axios.get(`http://localhost:8081/api/addresses/${this.userId}`);
         this.savedAddresses = response.data;
 
-        // 假设第一个地址是默认地址
+     
         if (this.savedAddresses.length > 0) {
           this.defaultAddress = this.savedAddresses[0];
         }
@@ -88,18 +88,17 @@ export default {
     },
     async addAddress() {
       try {
-        // 调用后端API添加新地址
+      
         const response = await axios.post(`http://localhost:8081/api/addresses/${this.userId}`, this.newAddress);
 
-        // 将新地址加入已保存地址列表
         this.savedAddresses.push(response.data);
 
-        // 如果这是第一个地址，设为默认地址
+   
         if (this.savedAddresses.length === 1) {
           this.defaultAddress = response.data;
         }
 
-        // 重置表单和状态
+ 
         this.newAddress = { street: '', city: '', state: '', postal_code: '', country: '' };
         this.showAddAddressForm = false;
       } catch (error) {
@@ -111,7 +110,7 @@ export default {
 </script>
 
 <style scoped>
-/* 样式和之前一样 */
+
 .address-book-container {
   margin-left: 250px;
   padding: 20px;
